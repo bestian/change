@@ -30,6 +30,14 @@
           header
           class="text-grey-8"
         >
+          項目
+        </q-item-label>
+        <q-item to = "/">占卜</q-item>
+        <q-item to = "/book">檢索</q-item>
+        <q-item-label
+          header
+          class="text-grey-8"
+        >
           Essential Links
         </q-item-label>
 

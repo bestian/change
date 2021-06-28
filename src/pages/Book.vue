@@ -1,11 +1,12 @@
 <template>
   <q-page class="container">
-    <div v-if ="start">
-      <b>你今天的卦是: {{names[n]}}{{list[n]}}</b>
-      <iframe width="100%" :src="'https://zh.wikisource.org/wiki/%E5%91%A8%E6%98%93/' + encodeURI(names[n])"></iframe>
-      <button @click="reset()">再來一次</button>
+    <div class="inline" v-for = "(l, idx) in list" :key="l">
+      <h3>
+        <router-link :to = "'/detail/' + idx">
+          {{l}}{{names[idx]}}
+        </router-link>
+      </h3>
     </div>
-    <button v-else class="big" @click="go()">按此開始</button>
   </q-page>
 </template>
 
@@ -62,5 +63,13 @@ export default defineComponent({
 
   .big {
     font-size: 66px;
+  }
+
+  .inline {
+    display: inline-block;
+  }
+
+  a {
+    text-decoration: none;
   }
 </style>
