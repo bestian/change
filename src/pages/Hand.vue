@@ -14,10 +14,10 @@
 
       <div v-else>
         
-        <button @click="p(1,true)">+++太陽</button>
-        <button @click="p(1,false)">+-+少陽</button>
-        <button @click="p(0,true)">---太陰</button>
-        <button @click="p(0,false)">-+-少陰</button>
+        <button @click="p(1,true)">(正正正)(+++)太陽</button>
+        <button @click="p(1,false)">(正反正)(+-+)少陽</button>
+        <button @click="p(0,true)">(反反反)(---)太陰</button>
+        <button @click="p(0,false)">(反正反)(-+-)少陰</button>
 
       </div>
 
