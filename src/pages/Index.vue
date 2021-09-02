@@ -1,10 +1,15 @@
 <template>
   <q-page class="container">
     <div v-if ="start">
-      <b>你今天的卦是: {{coins}}{{gua}}</b>
+      <button @click="reset()">再來一次</button>
       <br/>
-      <b>你今天的卦是: {{names[n]}}{{list[n]}}</b>
-      <iframe width="100%" :src="'https://zh.wikisource.org/wiki/%E5%91%A8%E6%98%93/' + encodeURI(names[n])"></iframe>
+      <b>你今天的卦是: {{coins}}{{gua}} {{name}}</b>
+      <br/>
+      <b>未來的卦是: {{coins2}}{{gua2}} {{name2}}</b>
+      <!--<br/>
+      <b>你今天的卦是: {{names[n]}}{{list[n]}}</b> -->
+      <iframe width="100%" :src="'https://zh.wikisource.org/wiki/%E5%91%A8%E6%98%93/' + encodeURI(name)"></iframe>
+      <iframe width="100%" :src="'https://zh.wikisource.org/wiki/%E5%91%A8%E6%98%93/' + encodeURI(name2)"></iframe>
       <button @click="reset()">再來一次</button>
     </div>
     <button v-else class="big" @click="go()">按此開始</button>
@@ -21,7 +26,12 @@ export default defineComponent({
       start: false,
       n: 0,
       coins: [1,1,1,1,1,1],
+      coins2: [0,0,0,0,0,0],
+      bain: [false,false,false,false,false,false],
       gua: '',
+      gua2: '',
+      name: '',
+      name2: '',
       hash: {
         '111111': '䷀',
         '000000': '䷁',
@@ -40,17 +50,67 @@ export default defineComponent({
         '001000': '䷎',
         '000100': '䷏',
         '100110': '䷐',
-        '011001': '䷑'
+        '011001': '䷑',
+        '110000': '䷒',
+        '000011': '䷓',
+        '100101': '䷔',
+        '101001': '䷕',
+        '000001': '䷖',
+        '100000': '䷗',
+        '100111': '䷘',
+        '111001': '䷙',
+        '100001': '䷚',
+        '011110': '䷛',
+        '010010': '䷜',
+        '101101': '䷝',
+        '001110': '䷞',
+        '011100': '䷟',
+        '001111': '䷠',
+        '111100': '䷡',
+        '000101': '䷢',
+        '101000': '䷣',
+        '101011': '䷤',
+        '110101': '䷥',
+        '001010': '䷦',
+        '010100': '䷧',
+        '110001': '䷨',
+        '100011': '䷩',
+        '111110': '䷪',
+        '011111': '䷫',
+        '000110': '䷬',
+        '011000': '䷭',
+        '010110': '䷮',
+        '011010': '䷮',
+        '101110': '䷰',
+        '011101': '䷰',
+        '100100': '䷲',
+        '001001': '䷳',
+        '001011': '䷴',
+        '110100': '䷵',
+        '101100': '䷶',
+        '001101': '䷷',
+        '011011': '䷸',
+        '110110': '䷹',
+        '010011': '䷺',
+        '110010': '䷻',
+        '110011': '䷼',
+        '001100': '䷽',
+        '101010': '䷾',
+        '010101': '䷿'
       },
       list: [
         '䷀', '䷁', '䷂', '䷃', '䷄', '䷅', 
         '䷆', '䷇', '䷈', '䷉', '䷊', '䷋', 
         '䷌', '䷍', '䷎', '䷏', '䷐', '䷑', 
-
         '䷒', '䷓', '䷔', '䷕', '䷖', '䷗', 
-        '䷘', '䷙', '䷚', '䷛', '䷜', '䷝', '䷞', '䷟',
-        '䷠', '䷡', '䷢', '䷣', '䷤', '䷥', '䷦', '䷧', '䷨', '䷩', '䷪', '䷫', '䷬', '䷭', '䷮', '䷯',
-        '䷰', '䷱', '䷲', '䷳', '䷴', '䷵', '䷶', '䷷', '䷸', '䷹', '䷺', '䷻', '䷼', '䷽', '䷾', '䷿'
+        '䷘', '䷙', '䷚', '䷛', '䷜', '䷝', 
+        '䷞', '䷟', '䷠', '䷡', '䷢', '䷣', 
+        '䷤', '䷥', '䷦', '䷧', '䷨', '䷩', 
+        '䷪', '䷫', '䷬', '䷭', '䷮', '䷯',
+        '䷰', '䷱', '䷲', '䷳', '䷴', '䷵', 
+
+        '䷶', '䷷', '䷸', '䷹', '䷺', '䷻', 
+        '䷼', '䷽', '䷾', '䷿'
       ],
       names: [
         '乾', '坤', '屯', '蒙', '需', '訟', '師', '比', 
@@ -72,8 +132,17 @@ export default defineComponent({
       this.n = Math.floor(Math.random()*64);
       for (var i = 0; i < this.coins.length; i++) {
         this.coins[i] = Math.floor(Math.random()*2);
+        this.bain[i] = [true,false,false][Math.floor(Math.random()*3)];
+        if(this.bain[i]) {
+          this.coins2[i] = 1 - this.coins[i]
+        } else {
+          this.coins2[i] = this.coins[i]
+        }
       }
       this.gua = this.hash[this.coins.join('')]
+      this.gua2 = this.hash[this.coins2.join('')]
+      this.name = this.names[this.list.indexOf(this.gua)]
+      this.name2 = this.names[this.list.indexOf(this.gua2)]
     }
   },
   mounted() {
