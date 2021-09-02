@@ -21,7 +21,7 @@
 
       </div>
 
-      <div v-if = "name">
+      <div v-if = "name && done">
         <iframe width="100%" :src="'https://zh.wikisource.org/wiki/%E5%91%A8%E6%98%93/' + encodeURI(name)"></iframe>
         <iframe width="100%" :src="'https://zh.wikisource.org/wiki/%E5%91%A8%E6%98%93/' + encodeURI(name2)"></iframe>
         </div>
