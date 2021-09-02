@@ -16,7 +16,7 @@
         
         <button @click="p(1,true)">+++太陽</button>
         <button @click="p(1,false)">+-+少陽</button>
-        <button @click="p(1,true)">---太陰</button>
+        <button @click="p(0,true)">---太陰</button>
         <button @click="p(0,false)">-+-少陰</button>
 
       </div>
