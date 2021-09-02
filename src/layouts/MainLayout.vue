@@ -33,6 +33,7 @@
           項目
         </q-item-label>
         <q-item to = "/">占卜</q-item>
+        <q-item to = "/hand">手動占卜</q-item>
         <q-item to = "/book">檢索</q-item>
         <q-item-label
           header
