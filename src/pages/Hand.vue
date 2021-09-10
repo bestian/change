@@ -27,7 +27,10 @@
         </div>
       <button @click="reset()" v-show="done">再來一次</button>
     </div>
-    <button v-else class="big" @click="go()">按此開始</button>
+    <div v-else>
+      <h3>請先想好您的問題，然後</h3>
+      <button class="big" @click="go()">按此開始</button>
+    </div>
   </q-page>
 </template>
 

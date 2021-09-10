@@ -12,7 +12,10 @@
       <iframe width="100%" :src="'https://zh.wikisource.org/wiki/%E5%91%A8%E6%98%93/' + encodeURI(name2)"></iframe>
       <button @click="reset()">再來一次</button>
     </div>
-    <button v-else class="big" @click="go()">按此開始</button>
+    <div v-else>
+      <h3>請先想好您的問題，然後</h3>
+      <button class="big" @click="go()">按此開始</button>
+    </div>
   </q-page>
 </template>
 
